@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
+  m_Name: FrostGolemFragment
+  m_EditorClassIdentifier: 
+  enemyName: Frost Golem's Fragment
+  Level: 5
+  MaxHealth: 100
+  Attack: 50
+  Defence: 30
+  Speed: 5
+  moves:
+  - {fileID: 11400000, guid: 671480ad03fd787478b4f57c674e23a7, type: 2}
+  - {fileID: 11400000, guid: c41a67a60fcaf2f408713990d3fc7949, type: 2}
+  - {fileID: 11400000, guid: db9e84def36de30448844c663326dc70, type: 2}
+  Aggressive: 0
+  Defensive: 0
+  SpecialMoveThreshold: 0
+  GoldReward: 100
+  EXP: 200

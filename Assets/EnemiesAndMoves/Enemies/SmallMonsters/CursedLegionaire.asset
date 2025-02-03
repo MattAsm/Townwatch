@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
+  m_Name: CursedLegionaire
+  m_EditorClassIdentifier: 
+  enemyName: Cursed Legionaire
+  Level: 7
+  MaxHealth: 150
+  Attack: 75
+  Defence: 75
+  Speed: 50
+  moves:
+  - {fileID: 11400000, guid: 85592b2d3bd93b04a814523287b0bd3b, type: 2}
+  - {fileID: 11400000, guid: 97be1e8bcef7ec548bc2a6d0f29bde70, type: 2}
+  - {fileID: 11400000, guid: 48be84b84c69f244890f70f84bc0b4dd, type: 2}
+  Aggressive: 0
+  Defensive: 0
+  SpecialMoveThreshold: 0
+  GoldReward: 200
+  EXP: 300

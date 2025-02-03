@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
+  m_Name: FrostPrince
+  m_EditorClassIdentifier: 
+  enemyName: Frost Prince
+  Level: 11
+  MaxHealth: 250
+  Attack: 150
+  Defence: 75
+  Speed: 75
+  moves:
+  - {fileID: 11400000, guid: 9888f93595006534db091cf5141e0dd9, type: 2}
+  - {fileID: 11400000, guid: c41a67a60fcaf2f408713990d3fc7949, type: 2}
+  - {fileID: 11400000, guid: 3a570c7e5d526244cbb712e00ee03bca, type: 2}
+  - {fileID: 11400000, guid: 90479f292bfc50b49b6b3f83a8af66e4, type: 2}
+  Aggressive: 0
+  Defensive: 0
+  SpecialMoveThreshold: 0
+  GoldReward: 400
+  EXP: 500

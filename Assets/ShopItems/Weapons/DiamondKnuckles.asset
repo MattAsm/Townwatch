@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81451044ee285b541ada99e50960e5e9, type: 3}
+  m_Name: DiamondKnuckles
+  m_EditorClassIdentifier: 
+  ItemName: Diamond Knuckles
+  ItemDescription: It's not just the fist that's hard. It's the consequences. +100
+    Attack +50 Speed
+  Icon: {fileID: 6069536390733860076, guid: 1ec34b979eea70949b22819a44f6303e, type: 3}
+  price: 500
+  rarity: 4
+  AttackPower: 100
+  LifeSteal: 0
+  Speed: 50
+  weaponType: 2

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81451044ee285b541ada99e50960e5e9, type: 3}
+  m_Name: TitaniumKnuckles
+  m_EditorClassIdentifier: 
+  ItemName: Titanium Knuckles
+  ItemDescription: They say these can punch out Titans! +75 Attack +30 Speed
+  Icon: {fileID: 7143556117738399220, guid: 1ec34b979eea70949b22819a44f6303e, type: 3}
+  price: 250
+  rarity: 3
+  AttackPower: 75
+  LifeSteal: 0
+  Speed: 30
+  weaponType: 2

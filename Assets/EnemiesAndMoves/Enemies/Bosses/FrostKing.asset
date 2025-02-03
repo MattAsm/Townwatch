@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
+  m_Name: FrostKing
+  m_EditorClassIdentifier: 
+  enemyName: Frost King
+  Level: 12
+  MaxHealth: 300
+  Attack: 50
+  Defence: 115
+  Speed: 25
+  moves:
+  - {fileID: 11400000, guid: 9888f93595006534db091cf5141e0dd9, type: 2}
+  - {fileID: 11400000, guid: 4f8963a8ef7f96d4d96fb13e56677639, type: 2}
+  - {fileID: 11400000, guid: 90479f292bfc50b49b6b3f83a8af66e4, type: 2}
+  Aggressive: 0
+  Defensive: 0
+  SpecialMoveThreshold: 0
+  GoldReward: 500
+  EXP: 2000

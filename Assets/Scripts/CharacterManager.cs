@@ -10,11 +10,8 @@ using System.Data.SqlTypes;
 
 public class CharacterManager : BattleEntity
 {
-    public int Accuracy;
-
-    public BattleManager battleManager;
     public static CharacterManager instance;
-    public Unit unit;
+
     public List<UnitMoves> learntMoves;
     public List<UnitMoves> selectedMoves;
     public int moveNum;
@@ -22,13 +19,13 @@ public class CharacterManager : BattleEntity
     public List<Button> moveButtons;
     public List<TMP_Text> moveNames;
 
-    public bool usedMove = false;
     public bool isTurn = false;
 
     private bool moveUiActive;
     [SerializeField]private GameObject PlayerCanvas; 
     public Slider healthBar;
 
+    //Player Only... Shouldn't these be on the Game Manager??? We can store money in here, but displaying money should be handled elsewhere
     [Header("Rounds")]
     public TMP_Text roundCount;
     public int round;
@@ -36,7 +33,7 @@ public class CharacterManager : BattleEntity
     public TMP_Text moneyDisplay;
     public int Money = 0;
     [Header("Stats Display")]
-    public GameObject statsToDisplay;
+    public GameObject statsToDisplay; 
     public TMP_Text statsOnDisplay;
     public bool statsDisplaying = false;
     [Header("EXP")]
@@ -46,12 +43,7 @@ public class CharacterManager : BattleEntity
     public Slider expBar;
 
     [HideInInspector] public Weapon weaponEquipped;
-
-    public GameObject animator;
-    public AudioSource audioSource;
-
-    public bool cursed = false;
-    void Awake()
+   void Awake()
     {
         if (instance == null)
         {
@@ -64,27 +56,15 @@ public class CharacterManager : BattleEntity
         }
     } //Manager Stuff
 
-    void Start()
+    new void Start()
     {
+        base.Start();
         round = 1;
         uiMoves();
-
-        entityName = unit.enemyName;
-        maxHealth = unit.MaxHealth;
-        currentHealth = maxHealth;
-        Level = unit.Level;
-        Attack = unit.Attack;
-        Defence = unit.Defence;
-        Speed = unit.Speed;
-
-        Accuracy = 100;
 
         healthBar.minValue = 0;
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
-
-        audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
-
     }
 
   
@@ -140,14 +120,15 @@ public class CharacterManager : BattleEntity
         }
     }
   
-    public override IEnumerator TakeTurn()
+    public IEnumerator TakeTurn()
     {
         audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
+        battleManager = BattleManager.Instance;
+
         if (cursed) {
             StartCoroutine(Cursed());
         }
         yield return new WaitForSeconds(1.5f);
-        battleManager = FindAnyObjectByType<BattleManager>();
         battleManager.gameText.text = "Your turn";
 
         yield return new WaitUntil(() => usedMove);
@@ -188,21 +169,12 @@ public class CharacterManager : BattleEntity
             return false;
         }
     }
-    public void Heal(int amount)
+    public new void Heal(int amount, BattleManager battleManager, Slider healthBar)
     {
-        if (currentHealth + amount <= maxHealth)
-        {
-            battleManager.gameText.text = $"You healed {currentHealth + ((amount * maxHealth) / 100)} health";
-        }
-        else if (currentHealth + amount > maxHealth)
-        {
-            battleManager.gameText.text = $"You healed {(maxHealth - currentHealth).ToString()} health";
-        }
-        currentHealth = Mathf.Min(currentHealth + ((amount * maxHealth) / 100), maxHealth);
-        healthBar.value = currentHealth;
-    }
+       base.Heal(amount, battleManager, healthBar);
+    } //Polymorphismed
     public IEnumerator MoveEffects()
-    {
+    { 
         //If Move Damages
         if (selectedMoves[moveNum].Damage > 0)
         {
@@ -213,7 +185,7 @@ public class CharacterManager : BattleEntity
         //If Move Heals
         if (selectedMoves[moveNum].Healing > 0)
         {
-            Heal(selectedMoves[moveNum].Healing);
+            Heal(selectedMoves[moveNum].Healing, battleManager, healthBar);
         }
         //If Move Causes Status Effect
          if (selectedMoves[moveNum].StatusCondition != "")
@@ -234,17 +206,9 @@ public class CharacterManager : BattleEntity
         Debug.Log($"Move:{selectedMoves[x].MoveName} | Damage:{selectedMoves[x].Damage} | Healing:{selectedMoves[x].Healing} | Status Condition:{selectedMoves[x].StatusCondition} | Accuracy:{selectedMoves[x].Accuracy}");
         return selectedMoves[x];
     }
-    public void TakeDamage(int dmg)
+    public new void TakeDamage(int dmg)
     {
-        int EffectiveDamage = Mathf.CeilToInt(dmg - Defence);
-        if (EffectiveDamage <= 0)
-        {
-            EffectiveDamage = 1;
-        }
-        currentHealth -= EffectiveDamage;
-       
-        battleManager.gameText.text = $"You took {EffectiveDamage} damage!";
-      
+        base.TakeDamage(dmg);
         if (currentHealth <= 0)
         {
             StartCoroutine(Die());
@@ -350,18 +314,12 @@ public class CharacterManager : BattleEntity
         Attack += weaponEquipped.AttackPower;
         Speed += weaponEquipped.Speed;
     }
+
     public void unequipWeapon()
     {
         Attack -= weaponEquipped.AttackPower;
         Speed -= weaponEquipped.Speed;
         weaponEquipped = null;
-    }
-
-    public IEnumerator Cursed()
-    {
-        yield return new WaitForSeconds(1.5f);
-        battleManager.gameText.text = $"You took {currentHealth * 0.15f} damage due to a curse";
-        currentHealth = Mathf.RoundToInt(currentHealth * 0.85f);  
     }
 
     public void moveAnim()

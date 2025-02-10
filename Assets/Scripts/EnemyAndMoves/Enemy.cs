@@ -7,45 +7,27 @@ using UnityEngine.UI;
 
 public class Enemy : BattleEntity
 {
-    public GameManager gameManager;
-    public BattleManager battleManager;
-    public Unit unit;
-    public bool usedMove = false;
     private bool isDead = false;
 
     public Slider healthBar;
 
-    public GameObject animator;
     public GameObject backAnimation;
     public CameraShake cameraShake;
-    public AudioSource audioSource;
-    public bool cursed = false;
 
     public int hitCount = 0;
     private bool doneHit = false;
-    void Start()
+   new void Start()
     {
-        battleManager = FindAnyObjectByType<BattleManager>();
+        base.Start();
+        battleManager = BattleManager.Instance;
         healthBar = GameObject.FindGameObjectWithTag("enemyHealth").GetComponent<Slider>();
-        gameManager = GameManager.instance;
         animator = GameObject.FindGameObjectWithTag("enemyAnimator");
         backAnimation = GameObject.FindGameObjectWithTag("healBackAnimator");
         cameraShake = FindFirstObjectByType<CameraShake>();
 
-        entityName = unit.enemyName;
-        maxHealth = unit.MaxHealth;
-        currentHealth = maxHealth;
-        Level = unit.Level;
-        Attack = unit.Attack;
-        Defence = unit.Defence;
-        Speed = unit.Speed;
-
         healthBar.minValue = 0;
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
-
-        audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
-
     }
 
     private void Update()
@@ -54,15 +36,9 @@ public class Enemy : BattleEntity
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
     }
-    public void TakeDamage(int dmg)
+    public new void TakeDamage(int dmg)
     {
-        int EffectiveDamage = Mathf.CeilToInt(dmg - Defence);
-        if (EffectiveDamage <= 0)
-        {
-            EffectiveDamage = 1;
-        }
-        battleManager.gameText.text = $"The {entityName} took {EffectiveDamage} damage!";
-        currentHealth -= EffectiveDamage;
+        base.TakeDamage(dmg);
         if (currentHealth <= 0)
         {
             isDead = true;
@@ -72,22 +48,12 @@ public class Enemy : BattleEntity
         healthBar.value = currentHealth;
     }
 
-    public void Heal(int amount)
+    public new void Heal(int amount, BattleManager battleManager, Slider healthBar)
     {
-        if (currentHealth + (amount * maxHealth) / 100 <= maxHealth)
-        {
-            battleManager.gameText.text = $"{entityName} healed {(amount * maxHealth) / 100} health";
-        }
-        else if (currentHealth + (amount * maxHealth) / 100 > maxHealth)
-        {
-            battleManager.gameText.text = $"{entityName} healed {(maxHealth - currentHealth).ToString()} health";
-        }
+        base.Heal(amount, battleManager, healthBar);
+    }//Polymorphismed
 
-        currentHealth = Mathf.Min(currentHealth + ((amount * maxHealth)/100), maxHealth);
-        healthBar.value = currentHealth;
-    }
-
-    public override IEnumerator TakeTurn()
+    public IEnumerator TakeTurn()
     {
         audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
         if (!isDead)
@@ -133,7 +99,7 @@ public class Enemy : BattleEntity
 
                 if (selectedMove.Healing > 0)
                 {
-                    Heal(selectedMove.Healing);
+                    Heal(selectedMove.Healing, battleManager, healthBar);
                 }
 
                    if (selectedMove.StatusCondition != "")
@@ -152,7 +118,7 @@ public class Enemy : BattleEntity
 
                 if (selectedMove.Damage > 0)
                 {
-                    StartCoroutine(cameraShake.Shake(0.5f, Random.Range(0.05f, 0.2f)));
+                    StartCoroutine(cameraShake.Shake(0.5f, Random.Range(0.05f, 0.2f))); 
                 }
                 yield return new WaitForSeconds(0.5f);
                 
@@ -165,15 +131,11 @@ public class Enemy : BattleEntity
         }
     }
 
-    public IEnumerator waitASec(float x)
-    {
-        Debug.Log("We Waiting");
-        yield return new WaitForSeconds(x);
-    }
     public string statusConditions(string statCon)
     {
         return statCon;
     }
+
     public IEnumerator Die()
     {
         yield return new WaitForSeconds(2f);
@@ -220,11 +182,5 @@ public class Enemy : BattleEntity
             default:
                 return;
         }
-    }
-
-    public IEnumerator Cursed()
-    {
-        yield return new WaitForSeconds(1.5f);
-        currentHealth = Mathf.RoundToInt(currentHealth * 0.85f);
     }
 }

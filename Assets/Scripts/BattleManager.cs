@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 
 public class BattleManager : MonoBehaviour
 {
+    public static BattleManager Instance;
     public enum FightState{ Start, Player, Enemy};
     private FightState currentState;
 
@@ -26,9 +27,14 @@ public class BattleManager : MonoBehaviour
     public UnitMoves usedMove;
 
     private int enemyScaler;
+
+    private void Awake()
+    {
+        Instance = this;
+        UnityEngine.Cursor.visible = true;
+    }
     void Start()
     {
-
         gameManager = GameManager.instance;
         player = CharacterManager.instance;
 

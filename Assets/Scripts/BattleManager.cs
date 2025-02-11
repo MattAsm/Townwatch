@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
-    public enum FightState{ Start, Player, Enemy};
+    public enum FightState { Start, Player, Enemy };
     private FightState currentState;
 
     public GameObject enemyPos;
@@ -27,6 +27,8 @@ public class BattleManager : MonoBehaviour
     public UnitMoves usedMove;
 
     private int enemyScaler;
+
+    [SerializeField] private GameObject[] money = new GameObject[3];
 
     private void Awake()
     {
@@ -134,5 +136,31 @@ public class BattleManager : MonoBehaviour
         enemyScript.Defence *= scale;
         enemyScript.Speed *= scale;
         enemyScript.Level *= scale;
+    }
+
+    public void DropMoney(int reward)
+    {
+        while (reward > 0)
+        {
+            if (reward >= 100)
+            {
+                Instantiate(money[2], enemyPos.transform.position + new Vector3(Random.Range(-6, 7), Random.Range(-1, 2), 0), Quaternion.identity);
+                reward -= 100;
+            }
+            else if (reward >= 25)
+            {
+                Instantiate(money[1], enemyPos.transform.position + new Vector3(Random.Range(-6, 7), Random.Range(-1, 2), 0), Quaternion.identity);
+                reward -= 25;
+            }
+            else if (reward >= 5)
+            {
+                Instantiate(money[0], enemyPos.transform.position + new Vector3(Random.Range(-6, 7), Random.Range(-1, 2), 0), Quaternion.identity);
+                reward -= 5;
+            }
+            else if(reward < 5)
+            {
+                break;
+            }
+        }
     }
 }

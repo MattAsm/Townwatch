@@ -5250,7 +5250,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5686275}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5254902}
   m_Origin: {x: -12, y: -9, z: 0}
   m_Size: {x: 23, y: 12, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -9960,6 +9960,10 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   gameText: {fileID: 1125411844}
   usedMove: {fileID: 0}
+  money:
+  - {fileID: 8898202160900339310, guid: 98486545583ca004e93bee6b81732d52, type: 3}
+  - {fileID: 1738440733006744746, guid: 7a161bd82ffa15843aa1cf4319e2781b, type: 3}
+  - {fileID: 430478110689476242, guid: 1a13f064415d44c4380ad6d97efdec3d, type: 3}
 --- !u!4 &855293884
 Transform:
   m_ObjectHideFlags: 0
@@ -28699,7 +28703,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 52
+  m_SortingOrder: 51
   m_TargetDisplay: 0
 --- !u!224 &2022574662
 RectTransform:

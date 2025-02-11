@@ -145,12 +145,20 @@ public class Enemy : BattleEntity
 
     public IEnumerator Die()
     {
+        //Temp sprite delete, change to death animation
+        yield return new WaitForSeconds(0.5f);
+        this.GetComponent<SpriteRenderer>().enabled = !enabled;
+
+        //Instantiate Money
+        battleManager.DropMoney(unit.GoldReward);
         yield return new WaitForSeconds(2f);
         isDead = true;
+
         //Player Rewards
         battleManager.gameText.text = $"The {entityName} has been slain! You recieved {unit.GoldReward} gold and {unit.EXP} XP!";
         battleManager.GetComponent<BattleManager>().player.Money += unit.GoldReward;
         battleManager.GetComponent<BattleManager>().player.exp += unit.EXP;
+
         //BattleTracker
         gameManager.battlesWon += 1;
         yield return new WaitForSeconds(2.5f);

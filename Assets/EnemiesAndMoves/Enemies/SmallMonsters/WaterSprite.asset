@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
   m_Name: WaterSprite
   m_EditorClassIdentifier: 
-  enemyName: WaterSprite
+  enemyName: Water Sprite
   Level: 3
   MaxHealth: 50
   Attack: 15

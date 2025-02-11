@@ -139,7 +139,9 @@ public class CharacterManager : BattleEntity
         usedMove = false;
         for (int x = 0; x < selectedMoves[moveNum].hits; x++) 
         {
-            if(battleManager.GetComponent<BattleManager>().enemyScript.GetComponent<Enemy>().currentHealth <=0)
+            battleManager.gameText.text = $"{unit.enemyName} used {selectedMoves[moveNum].MoveName}!";
+            yield return new WaitForSeconds(1f);
+            if (battleManager.GetComponent<BattleManager>().enemyScript.GetComponent<Enemy>().currentHealth <=0)
             {
                 break;
             }
@@ -178,8 +180,8 @@ public class CharacterManager : BattleEntity
         //If Move Damages
         if (selectedMoves[moveNum].Damage > 0)
         {
-            battleManager.gameText.text = $"You used {selectedMoves[moveNum].MoveName} on the {battleManager.GetComponent<BattleManager>().enemyScript.GetComponent<Enemy>().entityName}!";
-            yield return new WaitForSeconds(0.5f);
+            battleManager.gameText.text = $"It hits!";
+            yield return new WaitForSeconds(0.3f);
             battleManager.GetComponent<BattleManager>().enemyScript.GetComponent<Enemy>().TakeDamage(selectedMoves[moveNum].Damage + Attack);
         }
         //If Move Heals

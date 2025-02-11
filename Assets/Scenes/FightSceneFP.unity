@@ -1510,7 +1510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &378899119
 Transform:
   m_ObjectHideFlags: 0
@@ -4042,6 +4042,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &663038101
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -2253911629886400664, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_Name
+      value: FightScene01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: -8435245712485981826, guid: a5299eafa84cd2f4997f55e6060a8c8c, type: 3}
 --- !u!1 &675221529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5189,7 +5250,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 0.88235295}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5686275}
   m_Origin: {x: -12, y: -9, z: 0}
   m_Size: {x: 23, y: 12, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -5364,7 +5425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &846363436
 Transform:
   m_ObjectHideFlags: 0
@@ -9983,7 +10044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1003232438
 Transform:
   m_ObjectHideFlags: 0
@@ -12118,7 +12179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1150902060
 Transform:
   m_ObjectHideFlags: 0
@@ -27882,12 +27943,12 @@ GameObject:
   - component: {fileID: 1903749334}
   - component: {fileID: 1903749333}
   m_Layer: 0
-  m_Name: BacKDropMountain_0
+  m_Name: BacKDropMountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1903749333
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28889,7 +28950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2047057953
 Transform:
   m_ObjectHideFlags: 0
@@ -30434,6 +30495,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 2022574662}
   - {fileID: 1903749334}
+  - {fileID: 663038101}
   - {fileID: 887662779}
   - {fileID: 653114105}
   - {fileID: 1196415082}

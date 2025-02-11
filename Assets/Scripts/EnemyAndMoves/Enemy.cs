@@ -88,12 +88,14 @@ public class Enemy : BattleEntity
         UnitMoves selectedMove = unit.moves[moveIndex];
         for (int x = 0; x < selectedMove.hits; x++)
         {
+            battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}!";
+            yield return new WaitForSeconds(1f);
             if (Random.Range(0, 100) <= selectedMove.Accuracy)
             {
                 if (selectedMove.Damage > 0)
                 {
-                    battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}!";
-                    yield return new WaitForSeconds(2f);
+                    battleManager.gameText.text = $"It hits!";
+                    yield return new WaitForSeconds(0.3f);
                     battleManager.GetComponent<BattleManager>().player.TakeDamage(selectedMove.Damage + Attack);
                 }
 
@@ -102,8 +104,8 @@ public class Enemy : BattleEntity
                     Heal(selectedMove.Healing, battleManager, healthBar);
                 }
 
-                   if (selectedMove.StatusCondition != "")
-                   {
+                if (selectedMove.StatusCondition != "")
+                {
                     battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}! Causing {statusConditions(selectedMove.StatusCondition)}";
                     battleManager.gameText.text = $"The Status Condition feature hasn't been implemented yet!";
                 }
@@ -118,10 +120,15 @@ public class Enemy : BattleEntity
 
                 if (selectedMove.Damage > 0)
                 {
-                    StartCoroutine(cameraShake.Shake(0.5f, Random.Range(0.05f, 0.2f))); 
+                    StartCoroutine(cameraShake.Shake(0.5f, Random.Range(0.05f, 0.2f)));
                 }
                 yield return new WaitForSeconds(0.5f);
-                
+
+            }
+            else 
+            {
+                battleManager.gameText.text = $"It misses!";
+                yield return new WaitForSeconds(0.5f); 
             }
             hitCount++;
         }

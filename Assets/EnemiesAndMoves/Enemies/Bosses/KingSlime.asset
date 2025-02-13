@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad8094abab8f34da9a344fc3755013, type: 3}
   m_Name: KingSlime
   m_EditorClassIdentifier: 
-  enemyName: KingSlime
+  enemyName: King Slime
   Level: 4
   MaxHealth: 100
   Attack: 35

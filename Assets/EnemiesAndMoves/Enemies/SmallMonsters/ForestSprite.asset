@@ -20,8 +20,8 @@ MonoBehaviour:
   Speed: 10
   moves:
   - {fileID: 11400000, guid: e41d514b95c3b1741b4045047e3d244c, type: 2}
-  - {fileID: 11400000, guid: db9e84def36de30448844c663326dc70, type: 2}
   - {fileID: 11400000, guid: 739719160713f7247a86ff6649579118, type: 2}
+  - {fileID: 11400000, guid: dd6e75be76d10454c8684fe62dafcb70, type: 2}
   Aggressive: 0
   Defensive: 0
   SpecialMoveThreshold: 0

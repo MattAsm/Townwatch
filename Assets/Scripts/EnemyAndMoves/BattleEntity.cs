@@ -1,7 +1,9 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class BattleEntity : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class BattleEntity : MonoBehaviour
     public Unit unit;
     public bool usedMove = false;
     public bool cursed = false; //One of the Status Conditions
+    public IStatusEffect statusEffect;
+    public bool isFrozen = false;
     protected void Start()
     {
         gameManager = GameManager.instance;
@@ -70,5 +74,57 @@ public class BattleEntity : MonoBehaviour
         Attack = unit.Attack;
         Defence = unit.Defence;
         Speed = unit.Speed;
+    }
+
+
+    public void AddStatusEffect(IStatusEffect effect, BattleEntity target)
+    {
+        target.statusEffect = effect;
+        effect.ApplyEffect(target);
+    }
+
+    public void UpdateStatusEffect(IStatusEffect effect, BattleEntity effected)
+    {
+        if(effect.Duration > 0)
+        {
+            effect.UpdateEffect(effected);
+        }
+          else
+        {
+            Debug.Log("Remove???");
+            effect.RemoveEffect(effected);
+        }
+        
+    }
+
+
+    public void SwitchStatusEffects(EnumStatusEffect effect)
+    {
+        switch (effect)
+        {
+            case EnumStatusEffect.Freeze:
+                statusEffect = new FreezeEffect();
+                break;
+
+            case EnumStatusEffect.Burn:
+                //Need To Make A script
+                break;
+
+            case EnumStatusEffect.Poison:
+                statusEffect = new PoisonEffect();
+                break;
+
+            case EnumStatusEffect.Cursed:
+                //Need To Make A script
+                break;
+
+            case EnumStatusEffect.Purify:
+                //Need To Make A script
+                break;
+
+            default:
+                break;
+        }
+
     }
 }

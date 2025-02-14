@@ -125,11 +125,21 @@ public class CharacterManager : BattleEntity
         audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
         battleManager = BattleManager.Instance;
 
-        if (cursed) {
-            StartCoroutine(Cursed());
-        }
         yield return new WaitForSeconds(1.5f);
         battleManager.gameText.text = "Your turn";
+
+        if (statusEffect != null)
+        {
+            UpdateStatusEffect(statusEffect, this);
+        }
+
+        if (isFrozen)
+        {
+            battleManager.gameText.text = $"{unit.enemyName} is Frozen!";
+            yield return new WaitForSeconds(1.5f);
+            battleManager.StartNextTurn();
+            yield break;
+        }
 
         yield return new WaitUntil(() => usedMove);
         foreach (Button button in moveButtons) //RemovesListeners to stop multihitting buttons
@@ -189,12 +199,20 @@ public class CharacterManager : BattleEntity
         {
             Heal(selectedMoves[moveNum].Healing, battleManager, healthBar);
         }
+
+        ///
+        ///
+        ///
         //If Move Causes Status Effect
-         if (selectedMoves[moveNum].StatusCondition != "")
-         {
-            battleManager.gameText.text = $"The Player used {selectedMoves[moveNum]} causing the status condition {statusConditions(selectedMoves[moveNum].StatusCondition)}";
-            battleManager.gameText.text = $"The Status Condition feature hasn't been implemented yet!";
+        if (selectedMoves[moveNum].StatusCondition != EnumStatusEffect.None)
+        {
+            SwitchStatusEffects(selectedMoves[moveNum].StatusCondition);
+            AddStatusEffect(statusEffect, battleManager.GetComponent<BattleManager>().enemyScript);
+            battleManager.gameText.text = $"{unit.enemyName} used {selectedMoves[moveNum].MoveName}! Causing {statusEffect.Name}"; // {}";
         }
+        ///
+        ///
+        ///
 
         moveAnim();
         if (selectedMoves[moveNum].attackSound != null) 
@@ -224,11 +242,6 @@ public class CharacterManager : BattleEntity
         moveUiUnActive(); //Turns off Moves Select
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(3);
-    }
-
-    public string statusConditions(string statCon)
-    {
-        return null;
     }
 
     public void uiMoves()

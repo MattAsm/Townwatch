@@ -15,9 +15,9 @@ MonoBehaviour:
   MoveName: Frost Breath
   Damage: 0
   Healing: 0
-  StatusCondition: Freeze
   Accuracy: 100
   moveEffect: {fileID: 0}
   hits: 1
   attackType: Elemental
   attackSound: {fileID: 8300000, guid: 786d61337c57a2c46baa8045e25e6cad, type: 3}
+  StatusCondition: 1

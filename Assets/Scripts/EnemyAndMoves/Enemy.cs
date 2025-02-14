@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : BattleEntity
 {
@@ -58,13 +59,21 @@ public class Enemy : BattleEntity
         audioSource = GameObject.FindGameObjectWithTag("sfx").GetComponent<AudioSource>();
         if (!isDead)
         {
-            if (cursed)
-            {
-                StartCoroutine(Cursed());
-            }
-
             battleManager.gameText.text = $"{entityName}'s Turn.";
             yield return new WaitForSeconds(2.5f);
+
+            if (statusEffect != null)
+            {
+                UpdateStatusEffect(statusEffect, this);
+            }
+
+            if (isFrozen)
+            {
+                battleManager.gameText.text = $"{unit.enemyName} is Frozen!";
+                battleManager.StartNextTurn();
+                yield break;
+            }
+       
             StartCoroutine(UseMove());
             yield return new WaitUntil(() => doneHit == true);
             battleManager.StartNextTurn();
@@ -80,9 +89,9 @@ public class Enemy : BattleEntity
             yield break;
         }
 
+
         //Code to choose move
         //I am going to implement switch statements to decide move selection when I have time. For now it will be a random selection!
-        //It is something I need to learn to do but I may not have time before the deadline
        
         int moveIndex = Random.Range(0, unit.moves.Length);
         UnitMoves selectedMove = unit.moves[moveIndex];
@@ -104,11 +113,18 @@ public class Enemy : BattleEntity
                     Heal(selectedMove.Healing, battleManager, healthBar);
                 }
 
-                if (selectedMove.StatusCondition != "")
+                ///
+                ///
+                ///
+                if (selectedMove.StatusCondition != EnumStatusEffect.None)
                 {
-                    battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}! Causing {statusConditions(selectedMove.StatusCondition)}";
-                    battleManager.gameText.text = $"The Status Condition feature hasn't been implemented yet!";
+                    SwitchStatusEffects(selectedMove.StatusCondition);
+                    AddStatusEffect(statusEffect, battleManager.GetComponent<BattleManager>().player);
+                    battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}! Causing {statusEffect.Name}"; // {}";
                 }
+                ///
+                ///
+                ///
 
                 moveAnim(selectedMove);
 
@@ -136,11 +152,6 @@ public class Enemy : BattleEntity
         { 
             doneHit = true; 
         }
-    }
-
-    public string statusConditions(string statCon)
-    {
-        return statCon;
     }
 
     public IEnumerator Die()

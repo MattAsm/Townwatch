@@ -26,6 +26,8 @@ public class Enemy : BattleEntity
         backAnimation = GameObject.FindGameObjectWithTag("healBackAnimator");
         cameraShake = FindFirstObjectByType<CameraShake>();
 
+        poisonDamage = unit.poisonDamage;
+
         healthBar.minValue = 0;
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
@@ -62,19 +64,26 @@ public class Enemy : BattleEntity
             battleManager.gameText.text = $"{entityName}'s Turn.";
             yield return new WaitForSeconds(2.5f);
 
-            if (statusEffect != null)
+            if (this.statusEffect != null)
             {
-                UpdateStatusEffect(statusEffect, this);
+                UpdateStatusEffect(this.statusEffect, this);
+                yield return new WaitForSeconds(1.5f);
+                if (currentHealth <= 0)
+                {
+                    StartCoroutine(Die());
+                    yield break;
+                }
             }
 
-            if (isFrozen)
+            if (this.isFrozen)
             {
                 battleManager.gameText.text = $"{unit.enemyName} is Frozen!";
+                yield return new WaitForSeconds(1.5f);
                 battleManager.StartNextTurn();
                 yield break;
             }
-       
             StartCoroutine(UseMove());
+
             yield return new WaitUntil(() => doneHit == true);
             battleManager.StartNextTurn();
         }
@@ -118,9 +127,10 @@ public class Enemy : BattleEntity
                 ///
                 if (selectedMove.StatusCondition != EnumStatusEffect.None)
                 {
-                    SwitchStatusEffects(selectedMove.StatusCondition);
-                    AddStatusEffect(statusEffect, battleManager.GetComponent<BattleManager>().player);
-                    battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}! Causing {statusEffect.Name}"; // {}";
+                  //  SwitchStatusEffects(selectedMove.StatusCondition, battleManager.GetComponent<BattleManager>().player);
+                    AddStatusEffect(selectedMove, battleManager.GetComponent<BattleManager>().player, this);
+                    yield return new WaitForSeconds(1.5f);
+                    battleManager.gameText.text = $"{unit.enemyName} used {selectedMove.MoveName}! Causing {selectedMove.StatusCondition}"; // {}";                 
                 }
                 ///
                 ///

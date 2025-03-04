@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class PoisonEffect : IStatusEffect
 {
-    public string Name => "Freeze";
+    public string Name => "Poison";
     public EnumStatusEffect StatEff => EnumStatusEffect.Poison;
     public int Duration { get; private set; }
-
-    private int DamagePerTurn; //Set this to the damage per turn, depending on what kind of poison I decide on
-
-    /// <summary>
-    /// Keeping Code Blank for now. Need to decide on how I want the effect to work. 
-    /// Likely make it like "Slay The Spire" as I really like their idea for a poison effect
-    /// </summary>
     
-    public void ApplyEffect(BattleEntity target)
+    public  void ApplyEffect(BattleEntity target, BattleEntity sender)
     {
-        Debug.Log("Poison Applied");
+        Duration += sender.poisonDamage;
+        target.battleManager.gameText.text = $"{target.entityName} is poisoned for {Duration}!";
+        Debug.Log($"Poison Applied to {target}");
     }
+
     public void UpdateEffect(BattleEntity target)
     {
-        Debug.Log("Poison Updated");
+        if (Duration > 0)
+        {
+           target.battleManager.gameText.text = $"{target.entityName} took {Duration} poison damage!";
+            target.currentHealth -= Duration; //Duration = poisons damage. Similar to Slay The Spire
+            Duration--;
+            Debug.Log($"{target} Poisoned for {Duration} more turns");
+        }
     }
     public void RemoveEffect(BattleEntity target)
     {
+        target.statusEffect = null;
         Debug.Log("Poison Ended");
     }
 }

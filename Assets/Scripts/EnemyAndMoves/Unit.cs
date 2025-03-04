@@ -16,6 +16,8 @@ public class Unit : ScriptableObject
     public int Defence;
     public float Speed;
 
+    public int poisonDamage;
+
     [Header("Moveset")]
     public UnitMoves[] moves;
 

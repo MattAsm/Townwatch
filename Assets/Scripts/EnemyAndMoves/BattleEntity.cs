@@ -22,11 +22,13 @@ public class BattleEntity : MonoBehaviour
     public int Defence;
     public float Speed;
 
+    public int poisonDamage = 2;
+
     //Other
     public Unit unit;
     public bool usedMove = false;
     public bool cursed = false; //One of the Status Conditions
-    public IStatusEffect statusEffect;
+    public IStatusEffect statusEffect = null;
     public bool isFrozen = false;
     protected void Start()
     {
@@ -77,10 +79,27 @@ public class BattleEntity : MonoBehaviour
     }
 
 
-    public void AddStatusEffect(IStatusEffect effect, BattleEntity target)
+    public void AddStatusEffect(UnitMoves usedMove, BattleEntity target, BattleEntity sender)
     {
+        IStatusEffect effect = SwitchStatusEffects(usedMove.StatusCondition, target);
+        if (effect is PoisonEffect && target.statusEffect is not PoisonEffect)
+        {
+            effect = new PoisonEffect(); // Create a fresh instance for this target
+            target.statusEffect = effect;
+        }
+        else if (effect is PoisonEffect)
+        {
+            Debug.Log("Added more poison");
+            effect.ApplyEffect(target, sender);
+            return;
+        }
+        if(effect is FreezeEffect && target.isFrozen == true)
+        {
+            battleManager.gameText.text = $"{target.entityName} is already Frozen!";
+            return;
+        }
         target.statusEffect = effect;
-        effect.ApplyEffect(target);
+        effect.ApplyEffect(target, sender);
     }
 
     public void UpdateStatusEffect(IStatusEffect effect, BattleEntity effected)
@@ -89,41 +108,46 @@ public class BattleEntity : MonoBehaviour
         {
             effect.UpdateEffect(effected);
         }
-          else
+        else
         {
-            Debug.Log("Remove???");
+            Debug.Log($"Remove {effect} from {effected}");
+            SwitchStatusEffects(EnumStatusEffect.None, effected);
             effect.RemoveEffect(effected);
         }
         
     }
-
-
-    public void SwitchStatusEffects(EnumStatusEffect effect)
+    public IStatusEffect SwitchStatusEffects(EnumStatusEffect effect, BattleEntity target)
     {
         switch (effect)
         {
             case EnumStatusEffect.Freeze:
-                statusEffect = new FreezeEffect();
-                break;
+                return statusEffect = new FreezeEffect();
 
             case EnumStatusEffect.Burn:
-                //Need To Make A script
-                break;
+                return null;   //Need To Make A script
 
             case EnumStatusEffect.Poison:
-                statusEffect = new PoisonEffect();
-                break;
+                if (target.statusEffect is PoisonEffect)
+                { 
+                    return target.statusEffect; 
+                }
+                else
+                    return statusEffect = new PoisonEffect();
 
             case EnumStatusEffect.Cursed:
                 //Need To Make A script
-                break;
+                return null;
 
             case EnumStatusEffect.Purify:
                 //Need To Make A script
-                break;
+                return null;
+
+            case EnumStatusEffect.None:
+                Debug.Log($"Status Effects set to null for {target}");
+                return statusEffect = new NoEffect();
 
             default:
-                break;
+                return null;
         }
 
     }

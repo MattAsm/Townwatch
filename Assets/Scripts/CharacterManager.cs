@@ -128,12 +128,18 @@ public class CharacterManager : BattleEntity
         yield return new WaitForSeconds(1.5f);
         battleManager.gameText.text = "Your turn";
 
-        if (statusEffect != null)
+        if (this.statusEffect != null)
         {
-            UpdateStatusEffect(statusEffect, this);
+            UpdateStatusEffect(this.statusEffect, this);
+            yield return new WaitForSeconds(1.5f);
+            if (currentHealth <= 0)
+            {
+                StartCoroutine(Die());
+                yield break;
+            }
         }
 
-        if (isFrozen)
+        if (this.isFrozen)
         {
             battleManager.gameText.text = $"{unit.enemyName} is Frozen!";
             yield return new WaitForSeconds(1.5f);
@@ -206,9 +212,10 @@ public class CharacterManager : BattleEntity
         //If Move Causes Status Effect
         if (selectedMoves[moveNum].StatusCondition != EnumStatusEffect.None)
         {
-            SwitchStatusEffects(selectedMoves[moveNum].StatusCondition);
-            AddStatusEffect(statusEffect, battleManager.GetComponent<BattleManager>().enemyScript);
-            battleManager.gameText.text = $"{unit.enemyName} used {selectedMoves[moveNum].MoveName}! Causing {statusEffect.Name}"; // {}";
+          //  SwitchStatusEffects(selectedMoves[moveNum].StatusCondition, battleManager.GetComponent<BattleManager>().enemyScript);
+            AddStatusEffect(selectedMoves[moveNum], battleManager.GetComponent<BattleManager>().enemyScript, this);
+            yield return new WaitForSeconds(1.5f);
+         //   battleManager.gameText.text = $"{unit.enemyName} used {selectedMoves[moveNum].MoveName}! Causing {selectedMoves[moveNum].StatusCondition}"; 
         }
         ///
         ///
